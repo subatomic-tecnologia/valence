@@ -27,7 +27,13 @@ require('http').createServer(Router.handle).listen(8080)
 
 To build Valence, first run `npm install` and then `npm run build`.
 
-## To-do
-- Implement tests
-- Implement builds
-- Implement body parsing
+## Things that work
+
+- Routing
+- Status codes
+- Body parsing (JSON, Form Data)
+
+## Things that still need work
+- Tests
+- Body parsing (XML, Multipart)
+- Automated builds
