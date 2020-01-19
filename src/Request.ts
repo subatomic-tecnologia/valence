@@ -9,9 +9,24 @@ class Request {
   bodyBuffer : Uint8Array
   body : { [key: string]: any }
 
+  // The path, headers and host of our request
+  path : string
+  headers: any
+  hostname : string | null
+
+  // Exposes the raw request/response objects
+  getRawRequest () { return this.requestStream }
+  getRawResponse () { return this.responseStream }
+
   constructor({ req, res, ready } : { req: http.IncomingMessage, res: http.ServerResponse, ready: Function }) {
+    // Sets the underlying streams
     this.requestStream = req
     this.responseStream = res
+
+    // Sets the path, headers and host
+    this.path = this.requestStream.url || '/'
+    this.headers = this.requestStream.headers
+    this.hostname = this.requestStream.headers['host'] || null
 
     // Initializes the body
     this.bodyBuffer = new Uint8Array()
