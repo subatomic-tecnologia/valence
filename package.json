@@ -1,7 +1,7 @@
 {
-  "name": "valence",
+  "name": "@subatomic-rocks/valence",
   "version": "0.0.1",
-  "description": "A light-weight framework for Zeit Now",
+  "description": "A router for vanilla Node.js",
   "main": "dist/index.js",
   "dependencies": {},
   "devDependencies": {
@@ -10,8 +10,12 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no tests implemented. Check README.md\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/subatomic-rocks/valence.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "BSD-3-Clause"
 }
