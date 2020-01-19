@@ -142,7 +142,7 @@ class Router {
     const request = new Request({
       req, res, ready: async () => {
         // Finds the correct endpoint
-        let route = Router.fetchRequestRoute(req.method || 'GET', req.url || '/')
+        let route = Router.fetchRequestRoute(request.method, request.path)
 
         // If route is null, throw a 404
         if (null == route) return request.respond('Invalid endpoint.', 404)

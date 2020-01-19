@@ -9,10 +9,11 @@ class Request {
   bodyBuffer : Uint8Array
   body : { [key: string]: any }
 
-  // The path, headers and host of our request
-  path : string
+  // The path, method, headers and host of our request
+  path : string = '/'
+  method: string = 'get'
   headers: any
-  hostname : string | null
+  hostname : string | null = null
 
   // Exposes the raw request/response objects
   getRawRequest () { return this.requestStream }
@@ -22,11 +23,6 @@ class Request {
     // Sets the underlying streams
     this.requestStream = req
     this.responseStream = res
-
-    // Sets the path, headers and host
-    this.path = this.requestStream.url || '/'
-    this.headers = this.requestStream.headers
-    this.hostname = this.requestStream.headers['host'] || null
 
     // Initializes the body
     this.bodyBuffer = new Uint8Array()
@@ -53,13 +49,17 @@ class Request {
 
     // When ready, we'll parse the body and callback the ready function
     this.requestStream.on('end', async () => {
+      // Sets the path, headers and host
+      this.path = this.requestStream.url || '/'
+      this.method = (this.requestStream.method || 'GET').toLowerCase()
+      this.headers = this.requestStream.headers
+      this.hostname = this.requestStream.headers['host'] || null
+
       // Converts into a Node.js binary buffer in case we need it later
       this.bodyBuffer = Buffer.from(this.bodyBuffer)
 
       // Parses the body
       await this.bodyParse()
-
-      console.log(this.body)
 
       // Triggers callback if response wasn't sent yet
       if (!this.responseStream.finished)
@@ -72,7 +72,7 @@ class Request {
    */
   private async bodyParse () {
     // Extracts the current request Content-Type header
-    let requestContentType = this.requestStream.headers['content-type'] || null
+    let requestContentType = this.headers['content-type'] || null
 
     // If null, skip.
     if (null == requestContentType) return
