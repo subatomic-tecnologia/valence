@@ -6,20 +6,20 @@ class Request {
   private responseStream : http.ServerResponse
 
   // The body of our request
-  bodyBuffer : Uint8Array
-  body : { [key: string]: any }
+  public bodyBuffer : Uint8Array
+  public body : { [key: string]: any }
 
   // The path, method, headers and host of our request
-  path : string = '/'
-  method: string = 'get'
-  headers: any
-  hostname : string | null = null
+  public path : string = '/'
+  public method: string = 'get'
+  public headers: any
+  public hostname : string | null = null
 
   // Exposes the raw request/response objects
-  getRawRequest () { return this.requestStream }
-  getRawResponse () { return this.responseStream }
+  public getRawRequest () { return this.requestStream }
+  public getRawResponse () { return this.responseStream }
 
-  constructor({ req, res, ready } : { req: http.IncomingMessage, res: http.ServerResponse, ready: Function }) {
+  public constructor ({ req, res, ready } : { req: http.IncomingMessage, res: http.ServerResponse, ready: Function }) {
     // Sets the underlying streams
     this.requestStream = req
     this.responseStream = res
@@ -123,7 +123,7 @@ class Request {
    * @param {Number} status The HTTP status
    * @return {String} The current class name.
    */
-  respond (body : any, status : number) {
+  public respond (body : any, status : number) {
     // If we don't have a status, assume it as 200
     if (!status)
       status = 200
