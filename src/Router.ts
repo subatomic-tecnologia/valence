@@ -140,7 +140,7 @@ class Router {
   public static handle (req : http.IncomingMessage, res : http.ServerResponse) {
     // Creates a new internal request object
     const request = new Request({
-      req, res, ready: async () => {
+      req, res, ready: async (request : Request) => {
         // Finds the correct endpoint
         let route = Router.fetchRequestRoute(request.method, request.path)
 

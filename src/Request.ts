@@ -63,7 +63,7 @@ class Request {
 
       // Triggers callback if response wasn't sent yet
       if (!this.responseStream.finished)
-        ready()
+        ready(this)
     })
   }
 
