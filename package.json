@@ -1,0 +1,17 @@
+{
+  "name": "valence",
+  "version": "0.0.1",
+  "description": "A light-weight framework for Zeit Now",
+  "main": "dist/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
