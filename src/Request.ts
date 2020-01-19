@@ -84,8 +84,8 @@ class Request {
         // Processes them
         bodyUrlParams.map(param => {
           // Extracts key and value
-          let key = decodeURI(param.split('=')[0])
-          let value = decodeURI(param.split('=')[1])
+          let key = decodeURIComponent(param.split('=')[0])
+          let value = decodeURIComponent(param.split('=')[1])
 
           // Sets into the body
           this.body[key] = value
