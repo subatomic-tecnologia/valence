@@ -177,7 +177,7 @@ class Router {
         })
 
         // In case the response wasn't sent, force send the value returned by callback
-        if (!res.finished) return request.respond(altResponse, 404)
+        if (!res.finished) return request.respond(altResponse)
     } })
   }
 }

@@ -140,7 +140,7 @@ class Request {
    * @param {Number} status The HTTP status
    * @return {String} The current class name.
    */
-  public respond (body : any, status : number) {
+  public respond (body : any, status? : number) {
     // If we don't have a status, assume it as 200
     if (!status)
       status = 200
