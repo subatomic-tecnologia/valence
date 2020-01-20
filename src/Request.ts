@@ -1,4 +1,5 @@
 import * as http from 'http'
+import * as url from 'url'
 
 class Request {
   // Initialize our private properties
@@ -11,6 +12,7 @@ class Request {
 
   // The path, method, headers and host of our request
   public path : string = '/'
+  public query : Object = { }
   public method: string = 'get'
   public headers: any
   public hostname : string | null = null
@@ -49,8 +51,23 @@ class Request {
 
     // When ready, we'll parse the body and callback the ready function
     this.requestStream.on('end', async () => {
+      // Parses the path/URL
+      let parsedURL = url.parse(this.requestStream.url || '/')
+
+      // Parses the query
+      let rawQuery = (parsedURL.query || '').split('&')
+      let newQuery : any = { }
+      for (let iQueryParam = 0; iQueryParam < rawQuery.length; iQueryParam++) {
+        let queryParam = rawQuery[iQueryParam].split('=')
+        let queryParamKey = decodeURIComponent(queryParam[0])
+        let queryParamValue = decodeURIComponent(queryParam[1])
+
+        newQuery[queryParamKey] = queryParamValue
+      }
+
       // Sets the path, headers and host
-      this.path = this.requestStream.url || '/'
+      this.path = parsedURL.pathname || '/'
+      this.query = newQuery
       this.method = (this.requestStream.method || 'GET').toLowerCase()
       this.headers = this.requestStream.headers
       this.hostname = this.requestStream.headers['host'] || null

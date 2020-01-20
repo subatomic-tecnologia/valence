@@ -1,11 +1,13 @@
 {
   "name": "@subatomic-rocks/valence",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A router for vanilla Node.js",
   "main": "dist/index.js",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^13.1.8",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0",
     "typescript": "^3.7.5"
   },
   "scripts": {

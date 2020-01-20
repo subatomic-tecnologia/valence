@@ -2,7 +2,11 @@ import Request from './Request'
 import * as http from 'http'
 
 class Router {
+  // The routing table for every HTTP method
   private static routingTable : { [key: string ]: Array<Object> } = { }
+
+  // Prefix of the router. Will be *excluded* from the front of URLs
+  public static prefix : string = ''
 
   /**
    * Creates keyed regex that can be processed by the request handler during runtime
@@ -114,6 +118,19 @@ class Router {
   }
 
   /**
+   * Removes the prefix from the route path
+   * @param path The current path
+   */
+  public static getNonPrefixedRoute (path : string) {
+    // Checks if the prefix matches first
+    if (path.substr(0, Router.prefix.length) != Router.prefix) return false
+
+    // Returns the non-prefixed route
+    let newPath = path.substr(Router.prefix.length)
+    return (newPath[0] == '/') ? newPath : '/' + newPath
+  }
+
+  /**
    * Registers an event handler for a combination of HTTP method and path
    * @param method The HTTP method
    * @param path  The path
@@ -142,7 +159,13 @@ class Router {
     const request = new Request({
       req, res, ready: async (request : Request) => {
         // Finds the correct endpoint
-        let route = Router.fetchRequestRoute(request.method, request.path)
+        let routePath = Router.getNonPrefixedRoute(request.path)
+
+        // If false (prefix didn't match) return 404
+        if (false == routePath) return request.respond('Invalid endpoint.', 404)
+
+        // Fetches the correct route
+        let route = Router.fetchRequestRoute(request.method, routePath)
 
         // If route is null, throw a 404
         if (null == route) return request.respond('Invalid endpoint.', 404)
