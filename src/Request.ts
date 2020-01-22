@@ -145,6 +145,12 @@ class Request {
     if (!status)
       status = 200
 
+    // If the body is an object, JSON-encode it
+    if ('object' == typeof body) {
+      this.responseStream.setHeader('Content-Type', 'application/json')
+      body = JSON.stringify(body)
+    }
+
     // Sends status code
     this.responseStream.statusCode = status
 
