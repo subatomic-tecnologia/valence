@@ -173,6 +173,7 @@ class Router {
         // Invokes the callback
         let altResponse = await route.callback({
           request: request,
+          response: function Response (data : any, status? : number) { return request.response.call(request, data, status) },
           params: route.params,
         })
 
