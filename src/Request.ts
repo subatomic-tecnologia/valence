@@ -104,7 +104,7 @@ class Request {
           this.body = JSON.parse(this.bodyBuffer.toString())
         } catch (e) {
           // Problem parsing the JSON, responds with a 400 Bad Request
-          return this.respond('Bad Request', 400)
+          return this.response('Bad Request', 400)
         }
         break
 
@@ -128,7 +128,7 @@ class Request {
       default:
         console.log('Unknown request Content-Type:', requestContentType)
         console.log(this.bodyBuffer.toString())
-        return this.respond('Bad Request', 400)
+        return this.response('Bad Request', 400)
         break
     }
   }
@@ -140,7 +140,7 @@ class Request {
    * @param {Number} status The HTTP status
    * @return {String} The current class name.
    */
-  public respond (body : any, status? : number) {
+  public response (body : any, status? : number) {
     // If we don't have a status, assume it as 200
     if (!status)
       status = 200

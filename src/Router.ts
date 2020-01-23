@@ -162,23 +162,22 @@ class Router {
         let routePath = Router.getNonPrefixedRoute(request.path)
 
         // If false (prefix didn't match) return 404
-        if (false == routePath) return request.respond('Invalid endpoint.', 404)
+        if (false == routePath) return request.response('Invalid endpoint.', 404)
 
         // Fetches the correct route
         let route = Router.fetchRequestRoute(request.method, routePath)
 
         // If route is null, throw a 404
-        if (null == route) return request.respond('Invalid endpoint.', 404)
+        if (null == route) return request.response('Invalid endpoint.', 404)
 
         // Invokes the callback
         let altResponse = await route.callback({
           request: request,
-          response: request.respond,
           params: route.params,
         })
 
         // In case the response wasn't sent, force send the value returned by callback
-        if (!res.finished) return request.respond(altResponse)
+        if (!res.finished) return request.response(altResponse)
     } })
   }
 }
