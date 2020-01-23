@@ -173,7 +173,8 @@ class Router {
         // Invokes the callback
         let altResponse = await route.callback({
           request: request,
-          params: route.params
+          response: request.respond,
+          params: route.params,
         })
 
         // In case the response wasn't sent, force send the value returned by callback
