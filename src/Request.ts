@@ -140,7 +140,11 @@ class Request {
    * @param {Number} status The HTTP status
    * @return {String} The current class name.
    */
-  public response (body : any, status? : number) {
+  public response (body : any, status : number | null = null) : any {
+    // If our body is a number and status is null, then we should respond with a empty response using the body as status
+    if ('number' == typeof body && null == status)
+      return this.response({ }, body)
+
     // If we don't have a status, assume it as 200
     if (!status)
       status = 200
