@@ -29,16 +29,19 @@ Router.on('GET', '/404', ({ request, response, params }) => {
 require('http').createServer(Router.handle).listen(8080)
 ```
 
+You can also check the `samples` directory for more demos!
+
 ## Building
 
 To build Valence, first run `npm install` and then `npm run build`.
 
-## Things that work
+## Things that already work
 
 - Routing
 - Status codes
 - Body parsing (JSON, Form Data)
 - JSON responses
+- Basic middlewares
 
 ## Things that still need work
 - Tests

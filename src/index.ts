@@ -4,8 +4,10 @@
 
 import Router from './Router'
 import Request from './Request'
+import Middleware from './Middleware'
 
 export {
   Router,
   Request,
+  Middleware,
 }
