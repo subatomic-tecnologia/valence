@@ -1,6 +1,6 @@
 {
   "name": "@subatomic-rocks/valence",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "A router for vanilla Node.js",
   "main": "dist/index.js",
   "dependencies": {},

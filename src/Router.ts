@@ -168,6 +168,9 @@ class Router {
         // Router.middlewares.beforeRoute
         middlewareData = await Router.handleMiddlewares(middlewareData, async mw => await mw.beforeRoute(request))
 
+        // Checks if the response was already sent
+        if (request.isFinished()) return
+
         // Finds the correct endpoint
         let routePath = Router.getNonPrefixedRoute(request.path)
 
@@ -195,6 +198,9 @@ class Router {
 
         // Router.middlewares.beforeHandle
         middlewareData = await Router.handleMiddlewares(middlewareData, async mw => await mw.beforeHandle(request, routeData))
+
+        // Checks if the response was already sent
+        if (request.isFinished()) return
 
         // Update internal with correct middleware data
         routeData.internal = middlewareData

@@ -79,7 +79,7 @@ class Request {
       await this.bodyParse()
 
       // Triggers callback if response wasn't sent yet
-      if (!this.responseStream.finished)
+      if (!this.isFinished())
         ready(this)
     })
   }
@@ -160,6 +160,13 @@ class Request {
 
     // Finishes response
     this.responseStream.end(body)
+  }
+
+  /**
+   * Indicates whether the request has already finished (response sent)
+   */
+  public isFinished () {
+    return this.responseStream.finished
   }
 }
 
