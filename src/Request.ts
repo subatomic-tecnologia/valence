@@ -94,8 +94,12 @@ class Request {
     // If null, skip.
     if (null == requestContentType) return
 
+    // Gets the content type parts
+    const contentTypeArgs = requestContentType.split(';')
+    const contentTypeMain = contentTypeArgs.shift()
+
     // Custom processing here
-    switch (requestContentType.toLowerCase()) {
+    switch (contentTypeMain.toLowerCase()) {
 
       // JSON => application/json
       case 'application/json':
